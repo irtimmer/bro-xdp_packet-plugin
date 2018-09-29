@@ -136,6 +136,9 @@ void AF_XDPSource::Open() {
 		bpf.Unload(ifindex);
 		return;
 	}
+
+	stats = { };
+
 	Opened(props);
 }
 
@@ -161,6 +164,9 @@ bool AF_XDPSource::ExtractNextPacket(Packet* pkt) {
 	struct timeval ts;
 	pkt->Init(props.link_type, &ts, current->len, current->len, &((const u_char*) umem.addr)[current->addr]);
 
+	stats.received++;
+	stats.bytes_received += current->len;
+
 	return true;
 }
 
@@ -177,6 +183,19 @@ bool AF_XDPSource::SetFilter(int index) {
 }
 
 void AF_XDPSource::Statistics(Stats* s) {
+	struct xdp_statistics xdp_stats;
+	
+	socklen_t opt_length = sizeof(xdp_stats);
+	
+	if (getsockopt(fd, SOL_XDP, XDP_STATISTICS, &xdp_stats, &opt_length) < 0) {
+		Error(errno ? strerror(errno) : "unable to retrieve statistics");
+		return;
+	}
+
+	stats.dropped = xdp_stats.rx_dropped;
+	stats.link = stats.received + stats.dropped;
+
+	*s = stats;
 }
 
 iosource::PktSrc* AF_XDPSource::InstantiateAF_XDP(const std::string& path, bool is_live) {

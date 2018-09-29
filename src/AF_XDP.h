@@ -34,6 +34,7 @@ protected:
 
 private:
 	Properties props;
+	Stats stats;
 
 	unsigned short ifindex;
 
