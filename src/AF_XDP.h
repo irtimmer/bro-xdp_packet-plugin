@@ -2,9 +2,14 @@
 #define IOSOURCE_PKTSRC_AF_XDP_SOURCE_H
 
 extern "C" {
+#include <linux/if_link.h>
+#include <linux/if_xdp.h>
+#include <linux/if_ether.h>
 }
 
 #include "iosource/PktSrc.h"
+
+#include "XDP_Ring.h"
 
 namespace iosource {
 namespace pktsrc {
@@ -28,6 +33,15 @@ protected:
 
 private:
 	Properties props;
+
+	unsigned short ifindex;
+
+	int fd;
+	struct xdp_umem_reg umem;
+	struct xdp_desc* current;
+
+	XDP_Ring<__u64> fill;
+	XDP_Ring<struct xdp_desc> rx;	
 };
 
 }

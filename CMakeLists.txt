@@ -5,12 +5,15 @@ project(BroPluginaf_xdp)
 
 include(BroPlugin)
 
+find_package(KernelHeaders REQUIRED)
 bro_plugin_begin(itimmer af_xdp)
 bro_plugin_cc(src/Plugin.cc)
 bro_plugin_cc(src/AF_XDP.cc)
 bro_plugin_bif(src/af_xdp.bif)
 bro_plugin_dist_files(README CHANGES COPYING VERSION)
 bro_plugin_end()
+
+include_directories(${KERNELHEADERS_ROOT_DIR})
 
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION LIMIT_COUNT 1)
 

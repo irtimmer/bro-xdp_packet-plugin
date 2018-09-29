@@ -1,24 +1,25 @@
 #!/bin/sh
 #
-# Hooks to add custom options to the configure script.
-#
 
-plugin_usage()
-{
-    : # Do nothing
-#    cat <<EOF
-#    --with-foo=DIR          Path to foo
-# EOF
+plugin_usage() {
+    cat <<EOF
+    --with-kernel=DIR          Path to kernel sources
+    --with-latest-kernel       Use latest kernel sources available
+EOF
 }
 
-plugin_option()
-{
-    case "$1" in
-#        --with-foo=*)
-#            append_cache_entry FOO_DIR PATH $optarg
-#            return 0
-#            ;;
+plugin_option() {
 
+    case "$1" in
+        --with-kernel=*)
+            append_cache_entry KERNELHEADERS_ROOT_DIR PATH $optarg
+            return 0
+            ;;
+
+        --with-latest-kernel*)
+            append_cache_entry KERNELHEADERS_LATEST BOOL ON
+            return 0
+            ;;
         *)
             return 1;
             ;;
