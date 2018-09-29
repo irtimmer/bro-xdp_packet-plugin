@@ -10,6 +10,7 @@ extern "C" {
 #include "iosource/PktSrc.h"
 
 #include "XDP_Ring.h"
+#include "XDP_BPF.h"
 
 namespace iosource {
 namespace pktsrc {
@@ -39,6 +40,8 @@ private:
 	int fd;
 	struct xdp_umem_reg umem;
 	struct xdp_desc* current;
+
+	XDP_BPF bpf;
 
 	XDP_Ring<__u64> fill;
 	XDP_Ring<struct xdp_desc> rx;	

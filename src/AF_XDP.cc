@@ -115,6 +115,27 @@ void AF_XDPSource::Open() {
 		return;
 	}
 
+
+	if (bpf.Load("kern.o", ifindex) < 0) {
+		Error(errno ? strerror(errno) : "unable to load eBPF program");
+		close(fd);
+		return;
+	}
+
+	xsks_map = bpf.FindMap("xsks_map");
+	if (xsks_map < 0) {
+		Error(errno ? strerror(errno) : "unable to find eBPF map");
+		close(fd);
+		return;
+	}
+
+	int key = 0;
+	if (bpf.UpdateMap(xsks_map, &key, &fd, 0) < 0) {
+		Error(errno ? strerror(errno) : "unable to update eBPF map");
+		close(fd);
+		bpf.Unload(ifindex);
+		return;
+	}
 	Opened(props);
 }
 
@@ -123,6 +144,8 @@ void AF_XDPSource::Close() {
 		close(fd);
 		fd = 0;
 	}
+
+	bpf.Unload(ifindex);
 
 	Closed();
 }

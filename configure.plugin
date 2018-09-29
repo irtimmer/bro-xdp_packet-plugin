@@ -5,6 +5,9 @@ plugin_usage() {
     cat <<EOF
     --with-kernel=DIR          Path to kernel sources
     --with-latest-kernel       Use latest kernel sources available
+    --with-bpf                 Path to libbpf
+    --with-clang=CLANG         Path to clang executable
+    --with-llc=LLC	       Path to LLVM llc executable
 EOF
 }
 
@@ -18,6 +21,21 @@ plugin_option() {
 
         --with-latest-kernel*)
             append_cache_entry KERNELHEADERS_LATEST BOOL ON
+            return 0
+            ;;
+
+        --with-bpf=*)
+            append_cache_entry LIBBPF_ROOT_DIR PATH $optarg
+            return 0
+            ;;
+
+        --with-clang=*)
+            append_cache_entry CLANG_COMPILER PATH $optarg
+            return 0
+            ;;
+
+        --with-llc=*)
+            append_cache_entry LLC_COMPILER PATH $optarg
             return 0
             ;;
         *)
