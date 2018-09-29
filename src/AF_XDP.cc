@@ -162,6 +162,7 @@ bool AF_XDPSource::ExtractNextPacket(Packet* pkt) {
 		return false;
 
 	struct timeval ts;
+	gettimeofday(&ts, NULL);
 	pkt->Init(props.link_type, &ts, current->len, current->len, &((const u_char*) umem.addr)[current->addr]);
 
 	stats.received++;
