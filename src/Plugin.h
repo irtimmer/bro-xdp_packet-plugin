@@ -10,7 +10,7 @@
 #include <plugin/Plugin.h>
 
 namespace plugin {
-namespace itimmer_AF_XDP {
+namespace irtimmer_AF_XDP {
 
 class Plugin : public ::plugin::Plugin {
 protected:

@@ -14,7 +14,7 @@ add_custom_command(OUTPUT af_xdp_bpf.ll COMMAND ${CLANG_COMPILER} -I${KERNELHEAD
 add_custom_command(OUTPUT af_xdp_bpf.o COMMAND ${LLVM_COMPILER} -march=bpf -filetype=obj -o af_xdp_bpf.o af_xdp_bpf.ll DEPENDS af_xdp_bpf.ll)
 add_custom_target(af_xdp_bpf ALL DEPENDS af_xdp_bpf.o)
 
-bro_plugin_begin(itimmer af_xdp)
+bro_plugin_begin(irtimmer af_xdp)
 bro_plugin_cc(src/Plugin.cc)
 bro_plugin_cc(src/AF_XDP.cc)
 bro_plugin_cc(src/XDP_BPF.cc)

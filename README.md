@@ -1,4 +1,4 @@
-# itimmer::AF_XDP
+# irtimmer::AF_XDP
 
 This plugin provides native AF_XDP support for Bro.
 
