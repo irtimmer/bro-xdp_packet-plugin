@@ -1,3 +1,9 @@
+/** 
+ * Copyright (c) 2018 by Iwan Timmer
+ * 
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef IOSOURCE_PKTSRC_AF_XDP_SOURCE_H
 #define IOSOURCE_PKTSRC_AF_XDP_SOURCE_H
 

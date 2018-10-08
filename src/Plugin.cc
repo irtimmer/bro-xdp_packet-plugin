@@ -1,3 +1,9 @@
+/** 
+ * Copyright (c) 2018 by Iwan Timmer
+ * 
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include "Plugin.h"
 #include "AF_XDP.h"
 

@@ -1,3 +1,8 @@
+/** 
+ * Copyright (c) 2018 by Iwan Timmer
+ * 
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 #ifndef BRO_PLUGIN_ITIMMER_AF_XDP
 #define BRO_PLUGIN_ITIMMER_AF_XDP
