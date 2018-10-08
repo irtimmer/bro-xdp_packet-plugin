@@ -21,6 +21,7 @@
 #define PF_XDP AF_XDP
 #endif
 
+#define DEFAULT_COMPLETION_RING_SIZE 32
 #define DEFAULT_FILL_RING_SIZE 1024
 #define DEFAULT_RX_RING_SIZE 1024
 #define NUM_FRAMES 2048
@@ -46,6 +47,7 @@ void AF_XDPSource::Open() {
 	int xsks_map;
 	int r;
 
+	int completion_ring_size = DEFAULT_COMPLETION_RING_SIZE;
 	int fill_ring_size = DEFAULT_FILL_RING_SIZE;
 	int rx_ring_size = DEFAULT_RX_RING_SIZE;
 
@@ -73,6 +75,12 @@ void AF_XDPSource::Open() {
 
 	if (setsockopt(fd, SOL_XDP, XDP_UMEM_FILL_RING, &fill_ring_size, sizeof(fill_ring_size)) < 0) {
 		Error(errno ? strerror(errno) : "unable to set UMEM fill ring size");
+		close(fd);
+		return;
+	}
+
+	if (setsockopt(fd, SOL_XDP, XDP_UMEM_COMPLETION_RING, &completion_ring_size, sizeof(completion_ring_size)) < 0) {
+		Error(errno ? strerror(errno) : "unable to set UMEM completion ring size");
 		close(fd);
 		return;
 	}
