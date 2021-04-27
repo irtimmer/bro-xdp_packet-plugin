@@ -11,6 +11,7 @@
 extern "C" {
 #include <linux/if_link.h>
 
+#include <linux/bpf.h>
 #include <bpf/libbpf.h>
 #include <bpf/bpf.h>
 }

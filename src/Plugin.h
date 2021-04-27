@@ -1,6 +1,6 @@
-/** 
+/**
  * Copyright (c) 2018 by Iwan Timmer
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -12,10 +12,10 @@
 namespace plugin {
 namespace irtimmer_AF_XDP {
 
-class Plugin : public ::plugin::Plugin {
+class Plugin : public zeek::plugin::Plugin {
 protected:
 	// Overridden from plugin::Plugin.
-	plugin::Configuration Configure() override;
+	zeek::plugin::Configuration Configure() override;
 };
 
 extern Plugin plugin;
