@@ -35,7 +35,7 @@ plugin_option() {
             ;;
 
         --with-llc=*)
-            append_cache_entry LLC_COMPILER PATH $optarg
+            append_cache_entry LLVM_COMPILER PATH $optarg
             return 0
             ;;
         *)
