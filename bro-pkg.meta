@@ -1,9 +1,0 @@
-[package]
-description = This plugin provides native AF_XDP support for Bro.
-tags = bro plugin, packet source, af_xdp
-plugin_dir = build/itimmer_af_xdp.tgz
-build_command = ./configure --bro-dist=%(bro_dist)s && make
-test_command = cd tests && btest -d
-depends =
-  bro-pkg >=1.2
-  bro >=2.5.0

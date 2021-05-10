@@ -7,14 +7,16 @@
 #include "Plugin.h"
 #include "AF_XDP.h"
 
+#include <zeek/iosource/Component.h>
+
 namespace plugin { namespace irtimmer_AF_XDP { Plugin plugin; } }
 
 using namespace plugin::irtimmer_AF_XDP;
 
-plugin::Configuration Plugin::Configure() {
-	AddComponent(new ::iosource::PktSrcComponent("AF_XDPReader", "af_xdp", ::iosource::PktSrcComponent::LIVE, ::iosource::pktsrc::AF_XDPSource::InstantiateAF_XDP));
+zeek::plugin::Configuration Plugin::Configure() {
+	AddComponent(new zeek::iosource::PktSrcComponent("AF_XDPReader", "af_xdp", zeek::iosource::PktSrcComponent::LIVE, zeek::iosource::pktsrc::AF_XDPSource::InstantiateAF_XDP));
 
-	plugin::Configuration config;
+	zeek::plugin::Configuration config;
 	config.name = "irtimmer::AF_XDP";
 	config.description = "Packet acquisition via AF_XDP";
 	config.version.major = 0;

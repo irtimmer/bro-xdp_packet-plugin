@@ -1,0 +1,6 @@
+[package]
+description = This plugin provides native AF_XDP support for Zeek.
+tags = zeek plugin, packet source, af_xdp
+plugin_dir = build/itimmer_af_xdp.tgz
+build_command = ./configure --bro-dist=%(bro_dist)s && make
+test_command = cd tests && btest -d

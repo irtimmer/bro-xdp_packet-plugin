@@ -1,10 +1,10 @@
-/** 
+/**
  * Copyright (c) 2018 by Iwan Timmer
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "bro-config.h"
+#include "zeek-config.h"
 #include "AF_XDP.h"
 
 #include <net/if.h>
@@ -27,7 +27,7 @@
 #define NUM_FRAMES 2048
 #define FRAME_SIZE 2048
 
-using namespace iosource::pktsrc;
+using namespace zeek::iosource::pktsrc;
 
 AF_XDPSource::~AF_XDPSource() {
 	Close();
@@ -199,9 +199,9 @@ bool AF_XDPSource::SetFilter(int index) {
 
 void AF_XDPSource::Statistics(Stats* s) {
 	struct xdp_statistics xdp_stats;
-	
+
 	socklen_t opt_length = sizeof(xdp_stats);
-	
+
 	if (getsockopt(fd, SOL_XDP, XDP_STATISTICS, &xdp_stats, &opt_length) < 0) {
 		Error(errno ? strerror(errno) : "unable to retrieve statistics");
 		return;
@@ -213,6 +213,6 @@ void AF_XDPSource::Statistics(Stats* s) {
 	*s = stats;
 }
 
-iosource::PktSrc* AF_XDPSource::InstantiateAF_XDP(const std::string& path, bool is_live) {
+zeek::iosource::PktSrc* AF_XDPSource::InstantiateAF_XDP(const std::string& path, bool is_live) {
 	return new AF_XDPSource(path, is_live);
 }

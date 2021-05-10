@@ -18,10 +18,11 @@ extern "C" {
 #include "XDP_Ring.h"
 #include "XDP_BPF.h"
 
+namespace zeek {
 namespace iosource {
 namespace pktsrc {
 
-class AF_XDPSource : public iosource::PktSrc {
+class AF_XDPSource : public zeek::iosource::PktSrc {
 public:
 	AF_XDPSource(const std::string& path, bool is_live);
 
@@ -32,7 +33,7 @@ public:
 protected:
 	virtual void Open();
 	virtual void Close();
-	virtual bool ExtractNextPacket(Packet* pkt);
+	virtual bool ExtractNextPacket(zeek::Packet* pkt);
 	virtual void DoneWithPacket();
 	virtual bool PrecompileFilter(int index, const std::string& filter);
 	virtual bool SetFilter(int index);
@@ -51,10 +52,12 @@ private:
 	XDP_BPF bpf;
 
 	XDP_Ring<__u64> fill;
-	XDP_Ring<struct xdp_desc> rx;	
+	XDP_Ring<struct xdp_desc> rx;
 };
 
 }
 }
+}
 
 #endif
+
